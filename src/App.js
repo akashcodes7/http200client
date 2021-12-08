@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import styled from 'styled-components';
+import NavBar from './components/Universel/NavBar';
+
+import HomePage from './pages/HomePage';
+import LRPage from './pages/LoginRegister';
+import { MainLayout } from './assets/styles/Layouts';
+import Register from './components/LoginRegister/Register';
+import Report from './components/Report/Report';
+
+import { ThemeProvider } from '@mui/material';
+import theme from './components/Universel/Theme';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <ThemeProvider theme={theme}>
+        <NavBar />
+        <MainContentStyled>
+          <MainLayout>
+            <Switch>
+              <Route path="/" exact>
+                <HomePage />
+              </Route>
+              <Route path="/report" exact>
+                <Report />
+              </Route>
+              <Route path="/feedback" exact>
+                <HomePage />
+              </Route>
+              <Route path="/contact" exact>
+                <HomePage />
+              </Route>
+              <Route path="/login" exact>
+                <LRPage />
+              </Route>
+              <Route path="/register" exact>
+                <Register />
+              </Route>
+              <Redirect to="/" />
+            </Switch>
+          </MainLayout>
+        </MainContentStyled>
+      </ThemeProvider>
+    </React.Fragment>
   );
 }
+const MainContentStyled = styled.main``;
 
 export default App;
